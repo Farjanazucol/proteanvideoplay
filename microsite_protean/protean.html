@@ -60,7 +60,7 @@
     }
 
     /* volume on : container */
-    /* #switcher-container {
+    #switcher-container {
       display: block;
       position: absolute;
       top: 0;
@@ -75,10 +75,10 @@
       -webkit-transition: all 0.3s ease-in;
       -moz-transition: all 0.3s ease-in;
       transition: all 0.3s ease-in 0s;
-    } */
+    }
 
     /* volume on : button */
-    /* #switcher-container:after {
+    #switcher-container {
       content: "";
       border: 0px solid black;
       background: url(https://res.cloudinary.com/quentindigital/image/upload/v1598656567/icons/sound-off_rhwz0o.svg) center center;
@@ -88,49 +88,49 @@
       position: absolute;
       width: 40px;
       height: 40px;
-    } */
+    }
 
-    /* #switcher-container:hover {
+    #switcher-container {
       opacity: 1;
       background-color: rgba(255, 255, 255, 0);
       -webkit-transition: all 0.3s ease-in;
       -moz-transition: all 0.3s ease-in;
       transition: all 0.3s ease-in 0s;
-    } */
+    }
 
     /* volume off : container */
-    /* #volume-switcher:checked+#switcher-container {
+    #volume-switcher:checked+#switcher-container {
       background-color: rgba(255, 255, 255, 0);
       opacity: 0.1;
       -webkit-transition: all 0.7s ease-in 1s;
       -moz-transition: all 0.7s ease-in 1s;
       transition: all 0.7s ease-out 1s;
-    } */
+    }
 
     /* volume off : hover */
-    /* #volume-switcher:checked+#switcher-container:hover {
+    #volume-switcher:checked+#switcher-container {
       opacity: 0.8;
       -webkit-transition: all 0.3s ease-in;
       -moz-transition: all 0.3s ease-in;
       transition: opacity 0.3s ease-out 0s;
-    } */
+    }
 
     /* volume off : button */
-    /* #volume-switcher:checked+#switcher-container:after {
+    #volume-switcher:checked+#switcher-container {
       right: 10px;
       content: "";
       background: url(https://res.cloudinary.com/quentindigital/image/upload/v1598656567/icons/sound-on_vztd3h.svg) center center;
       background-size: 100%;
-    } */
+    }
 
     /* volume off : container */
-    /* #volume-switcher:checked+#switcher-container {
+    #volume-switcher:checked+#switcher-container {
       background-color: rgba(255, 255, 255, 0);
       opacity: 0.1;
       -webkit-transition: all 0.7s ease-in 1s;
       -moz-transition: all 0.7s ease-in 1s;
       transition: all 0.7s ease-out 1s;
-    } */
+    }
 
     @media screen and (max-width: 800px) {
       .video-wrapper {
@@ -148,8 +148,8 @@
   </style>
   <!-- Include Google Analytics tracking code -->
 
-  <script async src="https://www.googletagmanager.com/gtag/js?id=GTM-N6PVD5N"></script>
-  <script>
+  <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=GTM-N6PVD5N"></script> -->
+  <!-- <script>
     window.dataLayer = window.dataLayer || [];
     function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
@@ -159,12 +159,12 @@
 
     // Function to handle button click and Google Analytics event tracking
     function handleButtonClick() {
-      // Track the button click event using Google Analytics
-      // gtag('event', 'button_click', {
-      //   'event_category': 'Video Page',
-      //   'event_label': 'Action Button Clicked',
-      //   'transport_type': 'beacon' // Ensure the event is sent even if the user navigates away quickly
-      // });
+     // Track the button click event using Google Analytics
+      gtag('event', 'button_click', {
+        'event_category': 'Video Page',
+        'event_label': 'Action Button Clicked',
+        'transport_type': 'beacon' // Ensure the event is sent even if the user navigates away quickly
+      });
 
 
 
@@ -179,7 +179,7 @@
 
 
 
-  </script>
+  </script> -->
 </head>
 
 <body>
@@ -189,7 +189,7 @@
     <div class="video-wrapper">
       <div class="video-container">
         <a href="https://proteantech.in" target="_blank">
-          <video id="myVideo" autoplay loop  type="video/mp4" webkit-playsinline="" playsinline="">
+          <video id="myVideo" autoplay loop   type="video/mp4" webkit-playsinline="" playsinline="">
             <source src="./static/video/compressed.mp4" type="video/mp4">
           </video>
           <input type="checkbox" id="volume-switcher">
@@ -199,51 +199,29 @@
 
     </div>
   </div>
-  <!-- <script>
-    document.querySelector("#volume-switcher").onchange = function () {
-      document.querySelector("#myVideo").muted = !this.checked;
-
-
-    }
-
-  </script> -->
-
-
-
-
-
-  <!-- <script type="text/javascript">
-    // document.getElementById("myVideo").play()
-    var video = document.getElementById("myVideo");
-    // var overlay = document.getElementById("overlay");
-    $(document).ready(function () {
-      $("#myVideo").on('ended', function () {
-        window.location.href = "https://proteantech.in";
-      });
-      video.addEventListener("click", function (event) {
-        document.getElementById("myVideo").pause()
-      });
-    });
-  </script> -->
 
   <script>
-    document.addEventListener("DOMContentLoaded", function () {
-  var video = document.getElementById("myVideo");
-  
-  video.addEventListener("click", function () {
-    if (video.paused) {
-      video.play();
-    } else {
-      video.pause();
-    }
-  });
+    $(document).ready(function () {
+      $("#volume-switcher").on("change", function () {
+        $("#myVideo")[0].muted = !this.checked;
+      });
 
-  video.addEventListener("ended", function () {
+      var video = $("#myVideo")[0];
+
+      video.addEventListener("click", function () {
+        if (video.paused) {
+          video.play();
+          video.muted = true;
+        } else {
+          video.pause();
+          video.muted = false;
+        }
+      });
+
+      video.addEventListener("ended", function () {
     window.location.href = "https://proteantech.in";
   });
-
-  
-});
+    });
   </script>
 
 </body>
